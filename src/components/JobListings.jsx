@@ -1,9 +1,9 @@
 
-import jobs from "../jobs.json";
 import JobListing from "./JobListing.jsx";
+import { getAllJobs } from "../utils/jobsStorage.js";
 
 const JobListings = () => {
-    const recentJobs = jobs.slice(0,10);
+  const recentJobs = getAllJobs().slice(0, 10);
 
   return (
     <section className="bg-blue-50 px-4 py-10">
