@@ -49,9 +49,15 @@ export const getAllJobs = () => {
 };
 
 const getNextId = () => {
-  const allJobs = getAllJobs();
-  const maxId = allJobs.reduce((max, job) => {
-    const idNumber = Number(job.id);
+  const storedJobs = getStoredJobs();
+  const deletedIds = getDeletedJobIds();
+  const allIds = [
+    ...jobs.map((job) => job.id),
+    ...storedJobs.map((job) => job.id),
+    ...deletedIds,
+  ];
+  const maxId = allIds.reduce((max, id) => {
+    const idNumber = Number(id);
     if (Number.isNaN(idNumber)) {
       return max;
     }

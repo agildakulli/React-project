@@ -2,8 +2,10 @@
 import JobListing from "./JobListing.jsx";
 import { getAllJobs } from "../utils/jobsStorage.js";
 
-const JobListings = () => {
-  const recentJobs = getAllJobs().slice(0, 10);
+const JobListings = ({ limit }) => {
+  const jobs = getAllJobs();
+  const shouldLimit = Number.isFinite(limit) && limit > 0;
+  const jobsToShow = shouldLimit ? jobs.slice(0, limit) : jobs;
 
   return (
     <section className="bg-blue-50 px-4 py-10">
@@ -12,7 +14,7 @@ const JobListings = () => {
           Browse Jobs
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {recentJobs.map((job) => (
+          {jobsToShow.map((job) => (
             <JobListing key={job.id} job={job} />
           ))}
         </div>
